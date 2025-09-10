@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>COAP IIT GOA</title>
+        <link rel="stylesheet" type="text/css" href="dashboard.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .custom-input {
+            width: 200px; 
+            }
+            .cst-btn{
+                /* height:30px; */
+                margin:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="menu">
+            <center>
+            <img src="https://iitgoa.ac.in/wp-content/uploads/cropped-iit_goa.png" class="logo">
+            <div class="profile">
+                <img src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-user-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975448.jpg" style="border-radius:50%;height:35px">
+                <p id="reg"></p>
+            </div>
+            </center>
+
+            <ul class="menulist">
+                <li><a style="color:black;text-decoration: none;" href="./frontend/dashboard.html">Dashboard</a></li>
+                <li><a style="color:black;text-decoration: none;" href="./frontend/applicantdetails.html">Applicant Details</a></li>
+                <li><a style="color:black;text-decoration: none;" onclick="logoutUser()" href="./frontend/index.html">Logout</a></li>
+            </ul>
+        </div>
+        <div class="nonmenu">
+            <div class="heading1">
+                <p>Applicant Details</p>
+            </div>
+            <br>
+            <br>
+            <div class="main">
+                <br>
+                <div class="container">
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Full Name as in GATE</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="name" aria-describedby="basic-addon3" placeholder="Name">
+                </div>
+                </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Application No</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="appno" aria-describedby="basic-addon3" placeholder="Application No">
+                </div>
+                </div>
+                <div style="width:300px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Date of Birth</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="dob" aria-describedby="basic-addon3" placeholder="Date of Birth">
+                </div>
+                </div>
+                <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Admission No</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="addno" aria-describedby="basic-addon3" placeholder="Admission No">
+                    </div>
+                    </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Mobile Number</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="mobile" aria-describedby="basic-addon3" placeholder="Mobile">
+                </div>
+                </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Email</span>
+                </div>
+                <input style="border-radius:5px"  type="email" class="form-control custom-input" id="email" aria-describedby="basic-addon3" placeholder="Email">
+                </div>
+                </div>
+                <div style="width:300px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Category</span>
+                </div>
+                <!-- <input style="border-radius:5px"  type="text" class="form-control custom-input" id="category" aria-describedby="basic-addon3" placeholder="Category"> -->
+                <select class="custom-select form-control" style="border-radius: 5px;" id="category">
+                    <option selected>Choose...</option>
+                    <option value="general">General</option>
+                    <option value="obc">OBC</option>
+                    <option value="sc">SC</option>
+                    <option value="st">ST</option>
+                  </select>
+                </div>
+                </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">PwD Status</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="pwd" aria-describedby="basic-addon3" placeholder="PwD Status">
+                </div>
+                </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">EWS Status</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="ews" aria-describedby="basic-addon3" placeholder="EWS Status">
+                </div>
+                </div>
+                <div style="width:400px;">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Gender</span>
+                </div>
+                <input style="border-radius:5px"  type="text" class="form-control custom-input" id="gender" aria-describedby="basic-addon3" placeholder="Gender">
+                </div>
+                </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="heading2">
+                <p>Gate 2021 Details</p>
+            </div>
+            <br>
+            <br>
+            <div class="main">
+                <br>
+                <div class="container">
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Rank</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="rank2021" aria-describedby="basic-addon3" placeholder="Rank">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Roll No</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="rollno2021" aria-describedby="basic-addon3" placeholder="Roll No">
+                    </div>
+                    </div>
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Score</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="score2021" aria-describedby="basic-addon3" placeholder="Score">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Discipline</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="discipline2021" aria-describedby="basic-addon3" placeholder="Discipline">
+                    </div>
+                    </div>
+                    
+                    </div>
+                </div>
+                <br>
+            <br>
+            <br>
+            <div class="heading2">
+                <p>Gate 2022 Details</p>
+            </div>
+            <br>
+            <br>
+            <div class="main">
+                <br>
+                <div class="container">
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Rank</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="rank2022" aria-describedby="basic-addon3" placeholder="Rank">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Roll No</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="rollno2022" aria-describedby="basic-addon3" placeholder="Roll No">
+                    </div>
+                    </div>
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Score</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="score2022" aria-describedby="basic-addon3" placeholder="Score">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Discipline</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="discipline2022" aria-describedby="basic-addon3" placeholder="Discipline">
+                    </div>
+                    </div>
+                    
+                    </div>
+                </div>
+                <br>
+            
+            <br>
+            <br>
+            <div class="heading2">
+                <p>Gate 2023 Details</p>
+            </div>
+            <br>
+            <br>
+            <div class="main">
+                <br>
+                <div class="container">
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Rank</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="rank2023" aria-describedby="basic-addon3" placeholder="Rank">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Roll No</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="rollno2023" aria-describedby="basic-addon3" placeholder="Roll No">
+                    </div>
+                    </div>
+                    <div style="width:300px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Score</span>
+                    </div>
+                    <input style="border-radius:5px"  type="number" class="form-control custom-input" id="score2023" aria-describedby="basic-addon3" placeholder="Score">
+                    </div>
+                    </div>
+                    <div style="width:400px;">
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Discipline</span>
+                    </div>
+                    <input style="border-radius:5px"  type="text" class="form-control custom-input" id="discipline2023" aria-describedby="basic-addon3" placeholder="Discipline">
+                    </div>
+                    </div>
+                    
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="heading2">
+                    <p>HSSC Details</p>
+                </div>
+                <br>
+                <br>
+                <div class="main">
+                    <br>
+                    <div class="container">
+                        <div style="width:300px;">
+                        <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Exam Date</span>
+                        </div>
+                        <input style="border-radius:5px"  type="date" class="form-control custom-input" id="hsscdate" aria-describedby="basic-addon3" placeholder="Exam Date">
+                        </div>
+                        </div>
+                        <div style="width:400px;">
+                        <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">HSSC Percentage</span>
+                        </div>
+                        <input style="border-radius:5px"  type="number" class="form-control custom-input" id="hsscpercentage" aria-describedby="basic-addon3" placeholder="Percentage">
+                        </div>
+                        </div>
+                        
+                        
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="heading2">
+                        <p>SSC Details</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="main">
+                        <br>
+                        <div class="container">
+                            <div style="width:300px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Exam Date</span>
+                            </div>
+                            <input style="border-radius:5px"  type="date" class="form-control custom-input" id="sscdate" aria-describedby="basic-addon3" placeholder="Exam Date">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">HSSC Percentage</span>
+                            </div>
+                            <input style="border-radius:5px"  type="number" class="form-control custom-input" id="sscpercentage" aria-describedby="basic-addon3" placeholder="Percentage">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">SSC Board</span>
+                            </div>
+                            <input style="border-radius:5px"  type="text" class="form-control custom-input" id="sscboard" aria-describedby="basic-addon3" placeholder="Board">
+                            </div>
+                            </div>
+                            
+                            
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    <br>
+                    <div class="heading2">
+                        <p>Degree Details</p>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="main">
+                        <br>
+                        <div class="container">
+                            <div style="width:300px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Passing Date</span>
+                            </div>
+                            <input style="border-radius:5px"  type="date" class="form-control custom-input" id="degreepassingdate" aria-describedby="basic-addon3" placeholder="Exam Date">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree Percentage(7th Sem)</span>
+                            </div>
+                            <input style="border-radius:5px"  type="number" class="form-control custom-input" id="degree7percentage" aria-describedby="basic-addon3" placeholder="Percentage">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree CGPA(7th Sem)</span>
+                            </div>
+                            <input style="border-radius:5px"  type="number" class="form-control custom-input" id="degree7cgpa" aria-describedby="basic-addon3" placeholder="CGPA">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree Percentage(8th Sem)</span>
+                            </div>
+                            <input style="border-radius:5px"  type="number" class="form-control custom-input" id="degree8percentage" aria-describedby="basic-addon3" placeholder="Percentage">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree CGPA(8th Sem)</span>
+                            </div>
+                            <input style="border-radius:5px"  type="number" class="form-control custom-input" id="degree8cgpa" aria-describedby="basic-addon3" placeholder="CGPA">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree Qualification</span>
+                            </div>
+                            <input style="border-radius:5px"  type="text" class="form-control custom-input" id="degreequal" aria-describedby="basic-addon3" placeholder="Degree Qualification">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree Institute</span>
+                            </div>
+                            <input style="border-radius:5px"  type="text" class="form-control custom-input" id="degreeinsti" aria-describedby="basic-addon3" placeholder="Degree Institute">
+                            </div>
+                            </div>
+                            <div style="width:400px;">
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Degree Branch</span>
+                            </div>
+                            <input style="border-radius:5px"  type="text" class="form-control custom-input" id="degreebranch" aria-describedby="basic-addon3" placeholder="Degree Branch">
+                            </div>
+                            </div>
+                            
+                            
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    <div class="heading2" style="height:80px;margin-bottom:30px">
+                        <div style="width: 100%;display: flex;align-items: center;justify-content: space-evenly;">
+                            <button type="button" class="btn btn-primary cst-btn" onclick="validateAndSubmit()">Save Record</button>
+                            <button type="button" class="btn btn-success cst-btn" onclick="validateAndSubmit()">Final Submit</button>
+                        </div>
+                    </div>
+                    <br>
+                    
+                        
+            
+            </div>
+            <br>
+            <br>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function logoutUser() {
+            // Expire cookie by setting expiration time to past
+            document.cookie = 'loggedIn=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+
+            // Redirect to login page
+            window.location.href = '/index.html';
+        }
+        window.onload = function() {
+            if (!document.cookie.includes('loggedIn=true')) {
+                // User is already logged in, redirect to applicantdetails.html
+                window.location.href = './frontend/index.html';
+            }
+        };
+        
+    </script>
+    <script>
+        function getRegIdFromCookie() {
+            // Get the cookie string
+            var cookieParts = document.cookie.split('+');
+
+            // Find the part containing 'regid='
+            var regidPart = cookieParts.find(function(part) {
+                return part.startsWith('regid=');
+            });
+
+            // Extract the regid value
+            var regid = regidPart ? regidPart.substring('regid='.length) : null;
+
+            return regid;
+        }
+        window.onload = function() {
+            if (document.cookie.includes('loggedIn=true')) {
+                // User is already logged in, redirect to applicantdetails.html
+                document.getElementById("reg").innerHTML = getRegIdFromCookie();
+                fetchUserDetails();
+                // console.log(getRegIdFromCookie());
+
+            }
+        };
+        var dictionary = {
+                name:"Name of the Applicant", appno:"Application No", dob:"Date of Birth", addno:"Admission No", mobile:"Mobile Number", email:"Email Id", category:"Category", pwd:"PWD Status", ews:"EWS Status", gender:"Gender",
+                rank2021:"GATE 2021 Rank", rollno2021:"GATE 2021 Roll No", score2021:"GATE 2021 Score", discipline2021:"GATE 2021 Discipline",
+                rank2022:"GATE 2022 Rank", rollno2022:"GATE 2022 Roll No", score2022:"GATE 2022 Score", discipline2022:"GATE 2022 Discipline",
+                rank2023:"GATE 2023 Rank", rollno2023:"GATE 2023 Roll No", score2023:"GATE 2023 Score", discipline2023:"GATE 2023 Discipline",
+                hsscdate:"HSSC Exam Date", hsscpercentage:"HSSC Percentage", sscdate:"SSC Date", sscpercentage:"SSC Percentage", sscboard:"SSC Board",
+                degreepassingdate:"Degree Passing Date", degree7percentage:"Degree 7th Sem Percentage", degree7cgpa:"Degree 7th Sem CGPA", degree8percentage:"Degree 8th Sem Percentage",
+                degree8cgpa:"Degree 8th Sem CGPA", degreequal:"Degree Qualification", degreeinsti:"Degree Institute", degreebranch:"Degree Branch",regid:"COAP Registration ID"
+            };
+            function fetchUserDetails() {
+                var regid = getRegIdFromCookie();
+                fetch('http://127.0.0.1:5000/getuserdetails?regid=' + regid)
+                .then(response => response.json())
+                .then(data => {
+                    // Display user details
+                    var userDetailsHtml = '';
+                    for (var key in data) {
+                        // userDetailsHtml += "<p class='tempo'>" + dictionary[key] + ':&nbsp;&nbsp;&nbsp;&nbsp;' + data[key].toUpperCase() + '</p>';
+                        if (document.getElementById(key)){
+                        document.getElementById(key).value = data[key];
+                        }
+                    }
+                    document.getElementById('userDetails').innerHTML = userDetailsHtml;
+                })
+                .catch(error => console.error('Error fetching user details:', error));
+            }
+
+        
+        function validateAndSubmit() {
+            // Get all input values
+            const name = document.getElementById('name').value;
+            const appno = document.getElementById('appno').value;
+            const dob = document.getElementById('dob').value;
+            const addno = document.getElementById('addno').value;
+            const mobile = document.getElementById('mobile').value;
+            const email = document.getElementById('email').value;
+            const category = document.getElementById('category').value;
+            const pwd = document.getElementById('pwd').value;
+            const ews = document.getElementById('ews').value;
+            const gender = document.getElementById('gender').value;
+            const rank2021 = document.getElementById('rank2021').value;
+            const rollno2021 = document.getElementById('rollno2021').value;
+            const score2021 = document.getElementById('score2021').value;
+            const discipline2021 = document.getElementById('discipline2021').value;
+            const rank2022 = document.getElementById('rank2022').value;
+            const rollno2022 = document.getElementById('rollno2022').value;
+            const score2022 = document.getElementById('score2022').value;
+            const discipline2022 = document.getElementById('discipline2022').value;
+            const rank2023 = document.getElementById('rank2023').value;
+            const rollno2023 = document.getElementById('rollno2023').value;
+            const score2023 = document.getElementById('score2023').value;
+            const discipline2023 = document.getElementById('discipline2023').value;
+            const hsscdate = document.getElementById('hsscdate').value;
+            const hsscpercentage = document.getElementById('hsscpercentage').value;
+            const sscdate = document.getElementById('sscdate').value;
+            const sscpercentage = document.getElementById('sscpercentage').value;
+            const sscboard = document.getElementById('sscboard').value;
+            const degreepassingdate = document.getElementById('degreepassingdate').value;
+            const degree7percentage = document.getElementById('degree7percentage').value;
+            const degree7cgpa = document.getElementById('degree7cgpa').value;
+            const degree8percentage = document.getElementById('degree8percentage').value;
+            const degree8cgpa = document.getElementById('degree8cgpa').value;
+            const degreequal = document.getElementById('degreequal').value;
+            const degreeinsti = document.getElementById('degreeinsti').value;
+            const degreebranch = document.getElementById('degreebranch').value;
+            if (degree7percentage>100 || degree7percentage<0){
+                alert("Enter Valid Percentages and CGPA");
+                return;
+            }
+            if (degree8percentage>100 || degree8percentage<0){
+                alert("Enter Valid Percentages and CGPA");
+                return;
+            }
+            if (degree7cgpa>10 || degree7cgpa<0){
+                alert("Enter Valid Percentages and CGPA");
+                return;
+            }
+            if (degree8cgpa>10 || degree8cgpa<0){
+                alert("Enter Valid Percentages and CGPA");
+                return;
+            }
+    
+            // Perform validations for all fields
+            if (!name || !appno || !dob || !addno || !mobile || !email || !category || !pwd || !ews || !gender ||
+                !rank2021 || !rollno2021 || !score2021 || !discipline2021 || !rank2022 || !rollno2022 || !score2022 ||
+                !discipline2022 || !rank2023 || !rollno2023 || !score2023 || !discipline2023 || !hsscdate ||
+                !hsscpercentage || !sscdate || !sscpercentage || !sscboard || !degreepassingdate || !degree7percentage ||
+                !degree7cgpa || !degree8percentage || !degree8cgpa || !degreequal || !degreeinsti || !degreebranch) {
+                alert("Please fill in all the fields.");
+                return;
+            }
+    
+            // Check if mobile number is valid
+            const mobileRegex = /^[6-9]\d{9}$/;
+            if (!mobileRegex.test(mobile)) {
+                alert("Please enter a valid mobile number.");
+                return;
+            }
+    
+            // Check if email is valid
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+    
+            // Check if rank2021, score2021, etc., are valid (add validations as needed)
+    
+            // Construct the data object to be sent to the server
+            const regid = getRegIdFromCookie();
+            const data = {
+                name, appno, dob, addno, mobile, email, category, pwd, ews, gender,
+                rank2021, rollno2021, score2021, discipline2021,
+                rank2022, rollno2022, score2022, discipline2022,
+                rank2023, rollno2023, score2023, discipline2023,
+                hsscdate, hsscpercentage, sscdate, sscpercentage, sscboard,
+                degreepassingdate, degree7percentage, degree7cgpa, degree8percentage,
+                degree8cgpa, degreequal, degreeinsti, degreebranch,regid
+                // Add other fields to the data object as needed
+            };
+
+    
+            // Send a POST request to the server
+            fetch('http://127.0.0.1:5000/storedetails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle response from the server
+                alert(data.message); // Show a success message or handle errors
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            });
+        }
+    </script>
+    
+</html>

@@ -1,0 +1,266 @@
+.wrapper{
+    width:100%;
+    height:100%;
+    background:linear-gradient(rgba(64, 62, 62, 0.7), rgba(57, 57, 57, 0.7)), url(https://images.shiksha.com/mediadata/images/articles/1611195931phpjYlVyS.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* filter: brightness(90%) */
+}
+body{
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height:100vh;
+    margin-left: 0px;
+    margin-top:0px;
+}
+.nav{
+    background-color: black;
+    width:98%;
+    height:90px;
+    margin-left: 0.8%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    backdrop-filter: blur(10px) saturate(164%);
+    -webkit-backdrop-filter: blur(10px) saturate(164%);
+    background-color: rgba(17, 25, 40, 0.27);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.navone{
+    /* background-color: black; */
+    width:100%;
+    height:90px;
+    /* margin-left: 0.8%; */
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    /* backdrop-filter: blur(10px) saturate(164%);
+    -webkit-backdrop-filter: blur(10px) saturate(164%);
+    background-color: rgba(17, 25, 40, 0.27);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125); */
+    border-bottom-width:3px;
+    border-bottom-style:solid;
+    border-bottom-color:white;
+}
+#logo{
+    height:80px;
+    padding-left: 30px;
+}
+.side{
+    margin-left:40px;
+}
+.form{
+    background-color: black;
+    width:450px;
+    height:420px;
+    border-radius:0px;
+    backdrop-filter: blur(7px) saturate(186%);
+    -webkit-backdrop-filter: blur(7px) saturate(186%);
+    background-color: rgba(17, 25, 40, 0.34);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    margin-top:50px;
+    border-width:3px;
+    border-style:solid;
+    border-color:white;
+}
+.form1{
+    background-color: black;
+    width:450px;
+    height:370px;
+    border-radius:0px;
+    backdrop-filter: blur(7px) saturate(186%);
+    -webkit-backdrop-filter: blur(7px) saturate(186%);
+    background-color: rgba(17, 25, 40, 0.34);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    margin-top:50px;
+    border-width:3px;
+    border-style:solid;
+    border-color:white;
+}
+.wrapper2{
+    width:98%;
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+    height:80vh;
+}
+.wrapper3{
+    width:450px;
+    display: flex;
+    flex-direction: center;
+    align-items: center;
+    justify-content: center;
+    height:80vh;
+}
+.wrapper4{
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:80vh;
+}
+#strip{
+    width: 100%;
+    height:27px;
+    /* margin-top:-15px; */
+    background-color: black;
+    backdrop-filter: blur(7px) saturate(186%);
+    -webkit-backdrop-filter: blur(7px) saturate(186%);
+    background-color: rgba(17, 25, 40, 0.34);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.field{
+    width:350px;
+    height:30px;
+    border-radius: 6px;
+    border-style: solid;
+    border-width:3px;
+    border-color:black;
+}
+.loginbutton{
+    width:80px;
+    height:40px;
+    border-radius: 6px;
+    border-style:solid;
+    border-width:3px;
+    border-color:white;
+    background-color:cornflowerblue
+
+}
+.loginbutton:hover{
+    background-color: rgb(152, 237, 25);
+    transition: ease-in-out 0.7;
+}
+.loginbutton1{
+    width:150px;
+    height:40px;
+    border-radius: 6px;
+    border-style:solid;
+    border-width:3px;
+    border-color:white;
+    background-color:cornflowerblue
+
+}
+.loginbutton1:hover{
+    background-color: rgb(152, 237, 25);
+    transition: ease-in-out 0.7;
+}
+.forget{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.forgotpass{
+    border-radius: 6px;
+    color:yellow;
+    border-color: yellow;
+    border-width: 2px;
+    border-style: solid;
+    padding:4px;
+    width:150px
+}
+.register{
+    border-radius: 6px;
+    color:rgb(66, 202, 66);
+    border-color: rgb(66, 202, 66);
+    border-width: 2px;
+    border-style: solid;
+    padding:4px;
+    width:150px
+}
+.scroller{
+    overflow: scroll;
+    height:70%;
+    width:100%;
+}
+.mainwrap{
+    width: 100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: scroll;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top:-10vh;
+}
+
+/* for dashboard */
+.wrapperdash{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    background:linear-gradient(rgba(64, 62, 62, 0.7), rgba(57, 57, 57, 0.7)), url(https://images.shiksha.com/mediadata/images/articles/1611195931phpjYlVyS.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    
+    /* filter: brightness(90%) */
+}
+.hamburger{
+    width:100vw;
+    height:55px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+.nav-list{
+    color:white;
+    list-style-type: none;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width:400px;
+}
+.profile{
+    background-color: white;
+    width:250px;
+    height:45px;
+    /* padding-right:90px; */
+    margin-right:40px;
+    border-top-right-radius:20px;
+    border-bottom-left-radius:20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.body{
+    backdrop-filter: blur(7px) saturate(157%);
+    -webkit-backdrop-filter: blur(7px) saturate(157%);
+    background-color: rgba(17, 25, 40, 0.56);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    width:80%;
+    border-radius:30px;
+    height:75vh;
+}

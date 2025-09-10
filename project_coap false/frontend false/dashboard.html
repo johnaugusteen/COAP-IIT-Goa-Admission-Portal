@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COAP IIT GOA</title>
+    <link rel="stylesheet" type="text/css" href="dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-input {
+            width: 200px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <center>
+        <img src="https://iitgoa.ac.in/wp-content/uploads/cropped-iit_goa.png" class="logo">
+        <div class="profile">
+            <img src="https://png.pngtree.com/png-vector/20190423/ourmid/pngtree-user-icon-vector-illustration-in-filled-style-for-any-purpose-png-image_975448.jpg" style="border-radius:50%;height:35px">
+            <p id="reg"></p>
+        </div>
+        </center>
+
+        <ul class="menulist">
+            <li><a style="color:black;text-decoration: none;" href="/frontend/dashboard.html">Dashboard</a></li>
+            <li><a style="color:black;text-decoration: none;" href="/frontend/applicantdetails.html">Applicant Details</a></li>
+            <li><a style="color:black;text-decoration: none;" onclick="logoutUser()" href="/frontend/index.html">Logout</a></li>
+        </ul>
+    </div>
+    <div class="nonmenu">
+        <div class="heading1">
+            <p>Dashboard</p>
+        </div>
+        <div class="heading2" style="height:auto;margin-bottom:30px">
+            <div style="width:98%;margin:20px;height:100%;">
+                <div id="userDetails" ></div> <!-- Placeholder for displaying user details -->
+            </div>
+            
+        </div>
+        
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function logoutUser() {
+        // Expire cookie by setting expiration time to past
+        document.cookie = 'loggedIn=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+
+        // Redirect to login page
+        window.location.href = '/index.html';
+    }
+    window.onload = function() {
+        if (!document.cookie.includes('loggedIn=true')) {
+            // User is not logged in, redirect to login page
+            window.location.href = '/frontend/index.html';
+        } else {
+            // User is logged in, fetch and display user details
+            fetchUserDetails();
+            document.getElementById("reg").innerHTML = getRegIdFromCookie();
+            // console.log(document.getElementById("reg").value);
+            // document.getElementById('id').innerHTML = "COAP Registration ID: " + getRegIdFromCookie();
+        }
+    };
+    // window.onload = function() {
+    //         if (document.cookie.includes('loggedIn=true')) {
+    //             // User is already logged in, redirect to applicantdetails.html
+    //             document.getElementById("reg").value = getRegIdFromCookie();
+    //             // console.log(getRegIdFromCookie());
+
+    //         }
+    //     };
+
+    function fetchUserDetails() {
+            var regid = getRegIdFromCookie();
+            var dictionary = {
+                name:"Name of the Applicant", appno:"Application No", dob:"Date of Birth", addno:"Admission No", mobile:"Mobile Number", email:"Email Id", category:"Category", pwd:"PWD Status", ews:"EWS Status", gender:"Gender",
+                rank2021:"GATE 2021 Rank", rollno2021:"GATE 2021 Roll No", score2021:"GATE 2021 Score", discipline2021:"GATE 2021 Discipline",
+                rank2022:"GATE 2022 Rank", rollno2022:"GATE 2022 Roll No", score2022:"GATE 2022 Score", discipline2022:"GATE 2022 Discipline",
+                rank2023:"GATE 2023 Rank", rollno2023:"GATE 2023 Roll No", score2023:"GATE 2023 Score", discipline2023:"GATE 2023 Discipline",
+                hsscdate:"HSSC Exam Date", hsscpercentage:"HSSC Percentage", sscdate:"SSC Date", sscpercentage:"SSC Percentage", sscboard:"SSC Board",
+                degreepassingdate:"Degree Passing Date", degree7percentage:"Degree 7th Sem Percentage", degree7cgpa:"Degree 7th Sem CGPA", degree8percentage:"Degree 8th Sem Percentage",
+                degree8cgpa:"Degree 8th Sem CGPA", degreequal:"Degree Qualification", degreeinsti:"Degree Institute", degreebranch:"Degree Branch",regid:"COAP Registration ID"
+            };
+
+            fetch('http://127.0.0.1:5000/getuserdetails?regid=' + regid)
+            .then(response => response.json())
+            .then(data => {
+                // Display user details
+                var userDetailsHtml = '';
+                for (var key in data) {
+                    userDetailsHtml += "<p class='tempo'>" + dictionary[key] + ':&nbsp;&nbsp;&nbsp;&nbsp;' + data[key].toUpperCase() + '</p>';
+                }
+                document.getElementById('userDetails').innerHTML = userDetailsHtml;
+            })
+            .catch(error => console.error('Error fetching user details:', error));
+        }
+
+
+    function getRegIdFromCookie() {
+        // Get the cookie string
+        var cookieParts = document.cookie.split('+');
+
+        // Find the part containing 'regid='
+        var regidPart = cookieParts.find(function(part) {
+            return part.trim().startsWith('regid=');
+        });
+
+        // Extract the regid value
+        var regid = regidPart ? regidPart.trim().substring('regid='.length) : null;
+
+        return regid;
+    }
+</script>
+</html>

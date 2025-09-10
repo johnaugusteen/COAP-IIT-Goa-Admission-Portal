@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling to differentiate sections */
+        .filter-section, .profile-card {
+            background-color: #F0E1D3;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .filter-section h2, .profile-card h4 {
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h2>Eligibility Criteria</h2>
+        <form id="filterForm">
+            <div class="mb-3">
+                <label for="cpientrryforiit" class="form-label">CPI for B.Tech/Dual Degree from IIT</label>
+                <input type="number" step="0.1" class="form-control" id="cpientrryforiit" placeholder="Enter CPI (e.g., 8.0)" required>
+            </div>
+            <div class="mb-3">
+                <label for="cpientrryforscst" class="form-label">CPI for SC/ST (Non-IIT)</label>
+                <input type="number" step="0.1" class="form-control" id="cpientrryforscst" placeholder="Enter CPI (e.g., 6.5)" required>
+            </div>
+            <div class="mb-3">
+                <label for="cpientrryforother" class="form-label">CPI for Other (Non-IIT)</label>
+                <input type="number" step="0.1" class="form-control" id="cpientrryforother" placeholder="Enter CPI (e.g., 7.0)" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
+        </form>
+    </div>
+
+    <!-- Profiles Section -->
+    <div class="container">
+        <h1>Applicant Profiles</h1>
+        <div id="applicantProfiles"></div>
+    </div>
+    <!-- Add PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        async function applyFilters() {
+            // Retrieve input values
+            const cpiIIT = document.getElementById("cpientrryforiit").value;
+            const cpiSCST = document.getElementById("cpientrryforscst").value;
+            const cpiOther = document.getElementById("cpientrryforother").value;
+
+            // Validate inputs
+            if (!cpiIIT || !cpiSCST || !cpiOther) {
+                alert("Please enter values for all CPI fields.");
+                return; // Stop execution if validation fails
+            }
+
+            // Convert inputs to floats
+            const cpiValues = {
+                iit: parseFloat(cpiIIT),
+                scst: parseFloat(cpiSCST),
+                other: parseFloat(cpiOther)
+            };
+
+            // Data to be sent to the backend
+            const data = {
+                cpiIIT: cpiValues.iit,
+                cpiSCST: cpiValues.scst,
+                cpiOther: cpiValues.other
+            };
+            // console.log(data)
+
+            // Sending data to the backend
+            try {
+                const response = await fetch('http://127.0.0.1:5000/admin_dashboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const responseData = await response.json();
+                console.log('Success:', responseData);
+                displayProfiles(responseData); // Call function to display profiles
+            } catch (error) {
+                console.error('Error:', error);
+                alert("There was an error applying the filters. Please try again.");
+            }
+        }
+
+        // Function to display applicant profiles on the page
+        function displayProfiles(applicants) {
+            const profilesContainer = document.getElementById('applicantProfiles');
+            profilesContainer.innerHTML = ''; // Clear previous profiles
+
+            if (applicants.length === 0) {
+                profilesContainer.innerHTML = '<p class="text-center">No applicants found matching the criteria.</p>';
+                return;
+            }
+
+            applicants.forEach(applicant => {
+                const profileCard = `
+                    <div class="profile-card">
+                        <h4>${applicant.name} (Application No: ${applicant.appno})</h4>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr><td><strong>Date of Birth</strong></td><td>${applicant.dob || 'N/A'}</td></tr>
+                                <tr><td><strong>Admission No</strong></td><td>${applicant.addno || 'N/A'}</td></tr>
+                                <tr><td><strong>Mobile</strong></td><td>${applicant.mobile || 'N/A'}</td></tr>
+                                <tr><td><strong>Email</strong></td><td>${applicant.email || 'N/A'}</td></tr>
+                                <tr><td><strong>Category</strong></td><td>${applicant.category || 'N/A'}</td></tr>
+                                <tr><td><strong>PWD Status</strong></td><td>${applicant.pwd || 'N/A'}</td></tr>
+                                <tr><td><strong>EWS Status</strong></td><td>${applicant.ews || 'N/A'}</td></tr>
+                                <tr><td><strong>Admission Number</strong></td><td>${applicant.addno || 'N/A'}</td></tr>
+                                <tr><td><strong>Application Number</strong></td><td>${applicant.appno || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree 7 CGPA</strong></td><td>${applicant.degree7cgpa || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree 7 percentage</strong></td><td>${applicant.degree7percentage || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree 8 CGPA</strong></td><td>${applicant.degree8cgpa || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree 8 percentage</strong></td><td>${applicant.degree8percentage || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree Branch</strong></td><td>${applicant.degreebranch || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree Institute</strong></td><td>${applicant.degreeinsti || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree Passing Date</strong></td><td>${applicant.degreepassingdate || 'N/A'}</td></tr>
+                                <tr><td><strong>Degree Equivalent</strong></td><td>${applicant.degreequal || 'N/A'}</td></tr>
+                                <tr><td><strong>Discipline 2021</strong></td><td>${applicant.discipline2021 || 'N/A'}</td></tr>
+                                <tr><td><strong>Discipline 2022</strong></td><td>${applicant.discipline2022 || 'N/A'}</td></tr>
+                                <tr><td><strong>Discipline 2023</strong></td><td>${applicant.discipline2023 || 'N/A'}</td></tr>
+                                <tr><td><strong>Date of Birth</strong></td><td>${applicant.dob || 'N/A'}</td></tr>
+                                <tr><td><strong>HSSC Date</strong></td><td>${applicant.hsscdate || 'N/A'}</td></tr>
+                                <tr><td><strong>HSSC Percentage</strong></td><td>${applicant.hsscpercentage || 'N/A'}</td></tr>
+                                
+                                <tr><td><strong>Rank 2021</strong></td><td>${applicant.rank2021 || 'N/A'}</td></tr>
+                                <tr><td><strong>Rank 2022</strong></td><td>${applicant.rank2022 || 'N/A'}</td></tr>
+                                <tr><td><strong>Rank 2023</strong></td><td>${applicant.rank2023 || 'N/A'}</td></tr>
+                                <tr><td><strong>Registration ID</strong></td><td>${applicant.regid || 'N/A'}</td></tr>
+                                <tr><td><strong>Roll No 2021</strong></td><td>${applicant.rollno2021 || 'N/A'}</td></tr>
+                                <tr><td><strong>Roll No 2022</strong></td><td>${applicant.rollno2022 || 'N/A'}</td></tr>
+                                <tr><td><strong>Roll No 2023</strong></td><td>${applicant.rollno2023 || 'N/A'}</td></tr>
+                                <tr><td><strong>Score 2021</strong></td><td>${applicant.score2021|| 'N/A'}</td></tr>
+                                <tr><td><strong>Score 2022</strong></td><td>${applicant.score2022 || 'N/A'}</td></tr>
+                                <tr><td><strong>Score 2023</strong></td><td>${applicant.score2023 || 'N/A'}</td></tr>
+                                <tr><td><strong>SSC Board</strong></td><td>${applicant.sscboard || 'N/A'}</td></tr>
+                                <tr><td><strong>SSC Date</strong></td><td>${applicant.sscdate || 'N/A'}</td></tr>
+                                <tr><td><strong>SSC Percentage</strong></td><td>${applicant.sscpercentage || 'N/A'}</td></tr>
+                                <tr><td><strong>Shortlist Status</strong></td><td>${applicant.shortlist_status || 'N/A'}</td></tr>
+                            </tbody>
+                        </table>
+                        <h5>Certificates</h5>
+                        <br>
+                        <br>
+                        <div class="d-flex flex-wrap">
+                            ${generateCertificateLinks(applicant)}
+                        </div>
+                    </div>
+                    <!-- Modal for PDF Preview -->
+                    <div id="pdfModal" class="modal fade" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="pdfModalLabel">Certificate Preview</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe id="pdfPreviewFrame" width="100%" height="500px" style="border: none;"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                profilesContainer.innerHTML += profileCard; // Append the profile card
+            });
+        }
+        function openPdfPreview(url) {
+                const pdfFrame = document.getElementById('pdfPreviewFrame');
+                pdfFrame.src = url;
+                const modal = new bootstrap.Modal(document.getElementById('pdfModal'));
+                modal.show();
+            }
+
+        // Generate HTML for certificate links (update this as necessary)
+        function generateCertificateLinks(applicant) {
+            const certificates = [
+                { name: 'tenth_certificate', label: 'Tenth Certificate' },
+                { name: 'intermediate_certificate', label: 'Intermediate Certificate' },
+                { name: 'caste_certificate', label: 'Caste Certificate' },
+                { name: 'degree_certificate', label: 'Degree Certificate' },
+                { name: 'aadhaar_card', label: 'Aadhaar Card' }
+            ];
+            let links = '<div id="certificatesContainer" style="display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:start;width:100%">';
+
+            // const displayCertificates = (applicant, certificates) => {
+                function generatePdfThumbnail(base64Pdf, certName) {
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+
+                    pdfjsLib.getDocument(base64Pdf).promise.then(function(pdfDoc_) {
+                        pdfDoc_.getPage(1).then(function (page) {
+                            const scale = 1;  // Higher scale for better resolution
+                            const viewport = page.getViewport({ scale: scale });
+
+                            canvas.height = viewport.height / 2;
+                            canvas.width = viewport.width;
+
+                            const renderContext = {
+                                canvasContext: context,
+                                viewport: viewport,
+                                offsetY: 0
+                            };
+
+                            page.render(renderContext).promise.then(function() {
+                                const imgUrl = canvas.toDataURL('image/jpeg', 1.0);  // High-quality JPG
+                                const imgElement = document.getElementById(`pdf-thumbnail-${certName}`);
+                                if (imgElement) {
+                                    imgElement.src = imgUrl;
+                                }
+                            });
+                        });
+                    });
+                }
+
+
+                certificates.forEach(cert => {
+                    const certData = applicant[cert.name];
+                    if (certData && certData !== 'None') {
+                        const base64Url = `data:application/pdf;base64,${certData}`;
+                        links += `
+                            <div class="d-flex flex-column align-items-center certificate-item mb-3 p-2 shadow-sm" style="border-radius: 8px; margin-left:40px;width:500px">
+                                <!-- Full-length thumbnail preview -->
+                                <div style="text-align: center; margin-bottom: 10px;width:100%">
+                                    <img id="pdf-thumbnail-${applicant.appno}-${cert.name}" src="" alt="${cert.label} thumbnail" style="width: 100%; height: auto; border-radius: 8px;">
+                                </div>
+                                <div class="flex-grow-1" style="text-align: center;">
+                                    <h6 class="mb-0">${cert.label}</h6>
+                                    <small class="text-muted">PDF Document</small>
+                                </div>
+                                <div class="d-flex justify-content-center mt-2">
+                                    <button onclick="openPdfPreview('${base64Url}')" class="btn btn-outline-secondary btn-sm me-2" style="border-radius: 20px;">
+                                        <i class="bi bi-eye"></i> Preview
+                                    </button>
+                                    <a href="${base64Url}" download="${cert.label}.pdf" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">
+                                        <i class="bi bi-download"></i> Download
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        // Call generatePdfThumbnail with the applicant's unique appno to ensure correct mapping
+                        generatePdfThumbnail(base64Url, `${applicant.appno}-${cert.name}`); 
+                    } else {
+                        links += `
+                            <div class="d-flex align-items-center certificate-item mb-3 p-2 shadow-sm" style="border-radius: 8px; margin-left:40px;width:500px">
+                                <div class="cert-thumbnail" style="font-size: 40px; color: #ccc; margin-right: 15px;">
+                                    📄
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0">${cert.label}</h6>
+                                    <small class="text-muted">No certificate available</small>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+            // }
+                links += '</div>';
+            
+            return links;
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    
+    <style>
+        /* Custom styling for certificates section */
+        .certificate-item {
+            background-color: #ffffff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .certificate-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-outline-primary {
+            color: #5A9;
+            border-color: #5A9;
+        }
+        .btn-outline-primary:hover {
+            background-color: #5A9;
+            color: #fff;
+        }
+        .btn-outline-secondary {
+            color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: #fff;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

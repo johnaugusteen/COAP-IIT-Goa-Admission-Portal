@@ -1,0 +1,119 @@
+body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin:0px;
+}
+.menu{
+    width:200px;
+    background-color: #cbc7c7;
+    height:100%;
+    
+}
+.nonmenu{
+    width: calc(100% - 200px);
+    height:100%;
+    background-color: rgb(188, 194, 200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    overflow: scroll;
+}
+.menulist{
+    list-style-type:none;
+    color: black;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    
+}
+.menulist>li{
+    padding:10px;
+    margin-top:10px;
+    cursor:pointer;
+    /* margin-left:0px; */
+    
+}
+.profile{
+    background-color: white;
+    width:160px;
+    height:40px;
+    /* padding-right:90px; */
+    /* margin-right:40px; */
+    margin-top:20px;
+    border-top-right-radius:20px;
+    border-bottom-left-radius:20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.profile>p{
+    font-size: small;
+}
+.logo{
+    width:180px;
+    margin-top:20px;
+}
+.heading1{
+    background-color: rgb(227, 223, 223);
+    height:50px;
+    width: calc(100% - 20px);
+    margin-top:10px;
+    border-radius:5px;
+}
+.heading1>p{
+    margin-left:15px;
+    font-size: x-large;
+    margin-top:5px;
+}
+.heading2{
+    background-color: rgb(227, 223, 223);
+    height:50px;
+    width: calc(100% - 20px);
+    margin-top:20px;
+    border-radius:5px;
+}
+.heading2>p{
+    margin-left:15px;
+    font-size: x-large;
+    margin-top:5px;
+}
+.main{
+    background-color: rgb(227, 223, 223);
+    width:calc(100% - 20px);
+    /* height:calc(100vh - 100px); */
+    margin-top:20px;
+    border-radius:5px;
+}
+.container{
+    width:98%;
+    margin-left:1%;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom:10px;
+}
+.container>div{
+    padding-right: 30px;
+}
+#userDetails{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.tempo{
+    color:rgb(7, 7, 7);
+    width:350px;
+
+}

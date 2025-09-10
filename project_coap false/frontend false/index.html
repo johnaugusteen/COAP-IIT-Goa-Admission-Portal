@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>COAP IIT GOA</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <script>
+            // Check if session data exists
+            var userId = sessionStorage.getItem('userId');
+            console.log(userId);
+            if (userId) {
+                // Redirect to applicantdetails.html
+                window.location.href = '/frontend/applicantdetails.html';
+            }
+        </script>
+        <div class="wrapper">
+            <br>
+            <div class="nav">
+                   <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png"> 
+                   <h2 class="side">COAP - IIT Goa 2024</h2>
+            </div>
+            <center>
+            <div class="wrapper2">
+            <div class="form">
+                <div class="navone">
+                    <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png"> 
+                    <h2 class="side">COAP - IIT Goa 2024</h2>
+                </div>
+                <div id="strip">
+                    <center>
+                        <p style="color:white">Sign in to start your session</p>
+                    </center>
+                    
+                </div>
+                <br>
+                    <br>
+                <input required id="regid" class="field" placeholder="Enter COAP Registration ID">
+                <br>
+                    <br>
+                <input required id="pass" class="field" type="password" placeholder="Enter Password">
+                <br>
+                <br>
+                <Button id="signin" class="loginbutton">Sign In</Button>
+                <br>
+                <br>
+                <hr>
+                <!-- <br> -->
+                <div class="forget">
+                    <p class="forgotpass" id="forgotpass"><a href="/frontend/changepassword.html" style="text-decoration: none;color:white">Forgot Password</a></p>
+                    <p id="register" class="register"><a style="text-decoration: none;color:rgb(66, 202, 66);cursor:pointer" href="/frontend/register.html">Register</a></p>
+                </div>
+            </div>
+            </div>
+            </center>
+
+        </div>
+    </body>
+    <script>
+        document.getElementById('signin').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var regid = document.getElementById('regid').value;
+            var pass = document.getElementById('pass').value;
+
+            var data = {
+                regid: regid,
+                pass: pass
+            };
+
+            // Send POST request to server
+            fetch('http://127.0.0.1:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'User Matched') {
+                    var now = new Date();
+                    var time = now.getTime();
+                    var expireTime = time + 3600 * 1000; // 1 hour
+                    now.setTime(expireTime);
+                    document.cookie = `loggedIn=true+expires=${now.toUTCString()}+regid=${document.getElementById('regid').value}; path=/`;
+                    window.location.href = '/frontend/applicantdetails.html'; // Redirect to applicantdetails.html
+                } else {
+                    alert('Incorrect credentials. Please try again.');
+                }
+                document.getElementById('regid').value = "";
+                document.getElementById('pass').value = "";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        window.onload = function() {
+            if (document.cookie.includes('loggedIn=true')) {
+                // User is already logged in, redirect to applicantdetails.html
+                window.location.href = '/frontend/applicantdetails.html';
+            }
+        };
+        function logoutUser() {
+            // Expire cookie by setting expiration time to past
+            document.cookie = 'loggedIn=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+
+            // Redirect to login page
+            window.location.href = '/index.html';
+        }
+        
+    </script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>COAP IIT GOA</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <br>
+            <div class="nav">
+                   <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png"> 
+                   <h2 class="side">COAP - IIT Goa 2024</h2>
+            </div>
+            <center>
+            <div class="mainwrap">
+            <div class="wrapper4">
+                <h1 style="color:white">COAP Registration - IIT Goa</h1>
+                <br>
+                <p style="color:white;font-size: x-large;font-family:Verdana, Geneva, Tahoma, sans-serif;">ONLINE applications are invited for Admission to M. Tech Programme at IIT GOA starting from Autumn Semester of Academic Year: 2023-24. (July 2023)</p>
+            </div>
+            <div class="wrapper3">
+            <div class="form">
+                <div class="navone">
+                    <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png"> 
+                    <h2 class="side">COAP - IIT Goa 2024</h2>
+                </div>
+                <div id="strip">
+                    <center>
+                        <marquee><p style="color:white">Fill The Details For Registration</p></marquee>
+                    </center>
+                    
+                </div>
+                <div class="scroller">
+                    <br>
+                    <h2 style="margin-left: -175px;color:white">Personal Details:</h2>
+                <br>
+                    <!-- <br> -->
+                <input required id="name" class="field" placeholder="Full Name As in GATE">
+                <br>
+                    <br>
+                <input required id="dob" class="field" type="date" placeholder="Date Of Birth">
+                <br>
+                    <br>
+                <input required id="mobile" class="field" type="number" placeholder="Mobile Number">
+                <br>
+                    <br>
+                <input required id="email" class="field" type="email" placeholder="Enter Email">
+                <br>
+                <br>
+                <h2 style="margin-left: -175px;color:white">GATE Details:</h2>
+                    <br>
+                <input required id="regid" class="field"  placeholder="Enter COAP Registration ID">
+                <br>
+                    <br>
+                <input required id="pass" class="field" type="password" placeholder="Enter Password">
+                <br>
+                    <br>
+                <input required id="year" class="field" type="year" placeholder="Year">
+                <br>
+                <br>
+                <br>
+                <Button id="register" class="loginbutton1" style="color: black;cursor: pointer;">Complete Registration</Button>
+                <br>
+                <br>
+                </div>
+            </div>
+            </div>
+            </div>
+            </center>
+
+        </div>
+    </body>
+    <script>
+        document.getElementById("register").addEventListener("click", function() {
+            var name = document.getElementById("name").value;
+            var dob = document.getElementById("dob").value;
+            var mobile = document.getElementById("mobile").value;
+            var email = document.getElementById("email").value;
+            var regid = document.getElementById("regid").value;
+            var pass = document.getElementById("pass").value;
+            var year = document.getElementById("year").value;
+    
+            // Check if any field is empty
+            if (name === "" || dob === "" || mobile === "" || email === "" || regid === "" || pass === "" || year === "") {
+                alert("Please fill in all fields");
+                return;
+            }
+    
+            // Validate date of birth
+            var dobDate = new Date(dob);
+            if (dobDate >= new Date()) {
+                alert("Invalid Date of Birth");
+                return;
+            }
+    
+            // Validate email format
+            var emailRegex = /\S+@\S+\.\S+/;
+            if (!emailRegex.test(email)) {
+                alert("Invalid Email Format");
+                return;
+            }
+    
+            // Validate mobile number
+            if (mobile.length !== 10 || isNaN(mobile)) {
+                alert("Invalid Mobile Number");
+                return;
+            }
+    
+            var data = {
+                "name": name,
+                "dob": dob,
+                "mobile": mobile,
+                "email": email,
+                "regid": regid,
+                "pass": pass,
+                "year": year
+            };
+    
+            fetch('http://127.0.0.1:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Handle success response
+            if (data.message === "User already exists") {
+                alert("User already exists");
+            } else {
+                alert("Registration successful");
+            }
+            window.location.href = 'index.html';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Handle error response if needed
+        });
+        });
+    </script>
+    
+</html>

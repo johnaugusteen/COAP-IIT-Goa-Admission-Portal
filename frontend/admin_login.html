@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Login - COAP IIT GOA</title>
+    </head>
+    <body style="margin: 0; font-family: Arial, sans-serif;">
+        <div class="wrapper" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f0f0f0;">
+            <div class="nav" style="width: 100%; background-color: #00274D; padding: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png" style="height: 50px; margin-right: 10px;"> 
+                <h2 class="side" style="margin: 0; font-size: 24px;">COAP - IIT Goa 2024 - Admin Login</h2>
+            </div>
+            <center>
+            <div class="wrapper2" style="background-color: white; width: 350px; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <div class="form" style="text-align: center;">
+                    <div class="navone" style="margin-bottom: 20px;">
+                        <img id="logo" src="https://img.collegepravesh.com/2017/12/IIT-Goa-Logo.png" style="height: 40px; margin-bottom: 10px;"> 
+                        <h2 class="side" style="margin: 0; font-size: 20px;">COAP - IIT Goa 2024</h2>
+                    </div>
+                    <div id="strip" style="background-color: #00274D; padding: 10px 0; border-radius: 5px; margin-bottom: 20px;">
+                        <center>
+                            <p style="color: white; margin: 0; font-size: 18px;">Admin Sign In</p>
+                        </center>
+                    </div>
+                    <input required id="adminid" class="field" placeholder="Enter Admin Username" style="width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                    <input required id="adminpass" class="field" type="password" placeholder="Enter Password" style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                    <button id="signin" class="loginbutton" style="width: 100%; padding: 10px; background-color: #00274D; color: white; font-size: 18px; border: none; border-radius: 5px; cursor: pointer;">Sign In</button>
+                </div>
+            </div>
+            </center>
+        </div>
+    </body>
+    <script>
+        document.getElementById('signin').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var adminid = document.getElementById('adminid').value;
+            var adminpass = document.getElementById('adminpass').value;
+
+            var data = {
+                adminid: adminid,
+                adminpass: adminpass
+            };
+
+            // Send POST request to server
+            fetch('http://127.0.0.1:5000/admin_login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Admin Matched') {
+                    var now = new Date();
+                    var time = now.getTime();
+                    var expireTime = time + 3600 * 1000; // 1 hour
+                    now.setTime(expireTime);
+                    document.cookie = `adminLoggedIn=true;expires=${now.toUTCString()}; path=/`;
+                    window.location.href = '/frontend/admin_dashboard.html'; // Redirect to admin dashboard
+                } else {
+                    alert('Incorrect credentials. Please try again.');
+                }
+                document.getElementById('adminid').value = "";
+                document.getElementById('adminpass').value = "";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        window.onload = function() {
+            if (document.cookie.includes('adminLoggedIn=true')) {
+                // Admin is already logged in, redirect to admin dashboard
+                window.location.href = '/frontend/admin_dashboard.html';
+            }
+        };
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
